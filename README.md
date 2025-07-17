@@ -2,28 +2,12 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+ 
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript  Sample Blog API repository.
 
 ## Project setup
 
@@ -57,42 +41,145 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## API Documentation
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Base URL
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+http://localhost:3000/posts
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Endpoints
 
-## Resources
+#### Create a New Blog Post
 
-Check out a few resources that may come in handy when working with NestJS:
+- **POST** `/posts`
+- **Request Body:**
+  ```json
+  {
+    "title": "My First Blog Post",
+    "content": "This is the content of my first blog post.",
+    "category": "Technology",
+    "tags": ["Tech", "Programming"]
+  }
+  ```
+- **Success Response:**
+  - **Code:** 201 Created
+  - **Body:**
+    ```json
+    {
+      "_id": "<ObjectId>",
+      "title": "My First Blog Post",
+      "content": "This is the content of my first blog post.",
+      "category": "Technology",
+      "tags": ["Tech", "Programming"],
+      "createdAt": "2021-09-01T12:00:00Z",
+      "updatedAt": "2021-09-01T12:00:00Z",
+      "__v": 0
+    }
+    ```
+- **Error Response:**
+  - **Code:** 400 Bad Request (validation errors)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+#### Get All Blog Posts
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **GET** `/posts`
+- **Query Parameters:**
+  - `term` (optional): Filter posts by search term (matches title, content, category, or tags)
+- **Success Response:**
+  - **Code:** 200 OK
+  - **Body:** Array of blog posts
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Get a Single Blog Post
 
-## License
+- **GET** `/posts/:id`
+- **Success Response:**
+  - **Code:** 200 OK
+  - **Body:** Blog post object
+- **Error Response:**
+  - **Code:** 404 Not Found (if not found or invalid id)
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+#### Update a Blog Post
+
+- **PUT** `/posts/:id`
+- **Request Body:**
+  ```json
+  {
+    "title": "My Updated Blog Post",
+    "content": "This is the updated content of my first blog post.",
+    "category": "Technology",
+    "tags": ["Tech", "Programming"]
+  }
+  ```
+- **Success Response:**
+  - **Code:** 200 OK
+  - **Body:** Updated blog post object
+- **Error Response:**
+  - **Code:** 400 Bad Request (validation errors)
+  - **Code:** 404 Not Found (if not found or invalid id)
+
+---
+
+#### Delete a Blog Post
+
+- **DELETE** `/posts/:id`
+- **Success Response:**
+  - **Code:** 204 No Content
+- **Error Response:**
+  - **Code:** 404 Not Found (if not found or invalid id)
+
+---
+
+### Error Handling
+- All validation errors return a 400 status with details.
+- Not found or invalid IDs return a 404 status.
+
+---
+
+### Example cURL Requests
+
+**Create:**
+```bash
+curl -X POST http://localhost:3000/posts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "My First Blog Post",
+    "content": "This is the content of my first blog post.",
+    "category": "Technology",
+    "tags": ["Tech", "Programming"]
+  }'
+```
+
+**Get All:**
+```bash
+curl http://localhost:3000/posts
+```
+
+**Get by ID:**
+```bash
+curl http://localhost:3000/posts/<id>
+```
+
+**Update:**
+```bash
+curl -X PUT http://localhost:3000/posts/<id> \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "My Updated Blog Post",
+    "content": "This is the updated content of my first blog post.",
+    "category": "Technology",
+    "tags": ["Tech", "Programming"]
+  }'
+```
+
+**Delete:**
+```bash
+curl -X DELETE http://localhost:3000/posts/<id>
+```
